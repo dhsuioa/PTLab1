@@ -3,6 +3,7 @@ import argparse
 import sys
 from CalcRating import CalcRating
 from TextDataReader import TextDataReader
+from QuartileCalculator import QuartileCalculator
 
 
 def get_path_from_arguments(args) -> str:
@@ -18,8 +19,24 @@ def main():
     reader = TextDataReader()
     students = reader.read(path)
     print("Students: ", students)
+
+    # Рассчитываем рейтинг для всех студентов
     rating = CalcRating(students).calc()
     print("Rating: ", rating)
+
+    # Получаем список рейтингов
+    ratings_list = list(rating.values())
+
+    # Рассчитываем квартили
+    quartiles = QuartileCalculator.calculate_quartiles(ratings_list)
+    print("Quartiles: ", quartiles)
+
+    # Выводим студентов из третьей квартили
+    q3 = quartiles["Q3"]
+    print(f"Students in the 3rd quartile (rating >= {q3}):")
+    for student, score in rating.items():
+        if score >= q3:
+            print(f"{student}: {score}")
 
 
 if __name__ == "__main__":
