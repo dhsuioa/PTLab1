@@ -17,3 +17,11 @@
 1. Установите зависимости:
    ```bash
    pip install -r requirements.txt
+
+2. Запустить проект:
+    ```bash
+    python src/main.py -p data/data.txt
+
+3. Запустить тесты:
+    ```bash
+    pytest test
