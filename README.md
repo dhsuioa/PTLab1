@@ -12,16 +12,39 @@
 - `test/`: Модульные тесты.
 - `requirements.txt`: Зависимости проекта.
 
-## Как запустить проект
+## UML-диаграмма
 
-1. Установите зависимости:
-   ```bash
-   pip install -r requirements.txt
+```mermaid
+classDiagram
+    class CalcRating {
+        - data: DataType
+        - rating: RatingType
+        + __init__(data: DataType)
+        + calc() -> RatingType
+    }
 
-2. Запустить проект:
-    ```bash
-    python src/main.py -p data/data.txt
+    class DataReader {
+        <<abstract>>
+        + read(path: str) -> DataType
+    }
 
-3. Запустить тесты:
-    ```bash
-    pytest test
+    class TextDataReader {
+        - key: str
+        - students: DataType
+        + read(path: str) -> DataType
+    }
+
+    class QuartileCalculator {
+        + calculate_quartiles(ratings: List[float]) -> Dict[str, float]
+    }
+
+    class main {
+        + get_path_from_arguments(args) -> str
+        + main()
+    }
+
+    DataReader <|-- TextDataReader : Наследует
+    CalcRating --> DataReader : Использует
+    main --> CalcRating : Использует
+    main --> TextDataReader : Использует
+    main --> QuartileCalculator : Использует
