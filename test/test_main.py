@@ -15,8 +15,10 @@ def noncorrect_arguments_string() -> list[str]:
 
 def test_get_path_from_correct_arguments(
         correct_arguments_string: tuple[list[str], str]) -> None:
-    path = get_path_from_arguments(correct_arguments_string[0])
+    arguments = correct_arguments_string[0] + ["-f", "txt"]
+    path, file_format = get_path_from_arguments(arguments)
     assert path == correct_arguments_string[1]
+    assert file_format == "txt"
 
 
 def test_get_path_from_noncorrect_arguments(
